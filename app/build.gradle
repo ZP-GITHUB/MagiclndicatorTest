@@ -25,6 +25,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
+    //UI需要导的包
     implementation project(':magicindicator')
+    implementation 'com.android.support:design:28.0.0'
+    //百度AI
+    implementation files('libs/json-20160810.jar')
+    implementation files('libs/log4j-1.2.17.jar')
+    implementation files('libs/aip-java-sdk-4.7.0.jar')
+    implementation files('libs/fastjson-1.2.51.jar')
 }

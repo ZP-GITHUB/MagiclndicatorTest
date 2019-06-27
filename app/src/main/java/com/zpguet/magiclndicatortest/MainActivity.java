@@ -2,6 +2,7 @@ package com.zpguet.magiclndicatortest;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,13 +19,17 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ClipPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String[] CHANNELS = new String[]{"图像识别", "智能聊天", "语音识别"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
-    private ExamplePagerAdapter mExamplePagerAdapter = new ExamplePagerAdapter(mDataList);
+//    private ExamplePagerAdapter mExamplePagerAdapter = new ExamplePagerAdapter(mDataList);
+
+
+//    private MyPagerAdapter myPagerAdapter =
 
     private ViewPager mViewPager;
 
@@ -33,8 +38,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        List<Fragment> list = new ArrayList<>();
+        list.add(new TestFragment1());
+        list.add(new TestFragment2());
+        list.add(new TestFragment3());
+        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(),list);
+
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mViewPager.setAdapter(mExamplePagerAdapter);
+//        mViewPager.setAdapter(mExamplePagerAdapter);
+        mViewPager.setAdapter(myPagerAdapter);
 
         initMagicIndicator3();
     }
