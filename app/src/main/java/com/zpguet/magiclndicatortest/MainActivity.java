@@ -2,11 +2,14 @@ package com.zpguet.magiclndicatortest;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.blankj.utilcode.util.Utils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -38,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Utils.init(this);
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads().detectDiskWrites().detectNetwork()
+                .penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
+                .penaltyLog().penaltyDeath().build());
+
         List<Fragment> list = new ArrayList<>();
         list.add(new TestFragment1());
         list.add(new TestFragment2());
@@ -67,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ClipPagerTitleView clipPagerTitleView = new ClipPagerTitleView(context);
                 clipPagerTitleView.setText(mDataList.get(index));
-                clipPagerTitleView.setTextColor(Color.parseColor("#e94220"));
+                clipPagerTitleView.setTextColor(Color.parseColor("#808080"));
                 clipPagerTitleView.setClipColor(Color.WHITE);
                 clipPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -89,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 indicator.setLineHeight(lineHeight);
                 indicator.setRoundRadius(lineHeight / 2);
                 indicator.setYOffset(borderWidth);
-                indicator.setColors(Color.parseColor("#bc2a2a"));
+                indicator.setColors(Color.parseColor("#2690DF"));
                 return indicator;
             }
         });

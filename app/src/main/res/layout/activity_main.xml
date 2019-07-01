@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/navigator_margin_top"
+        android:background="@drawable/choose_style"
         android:orientation="vertical">
 
         <net.lucode.hackware.magicindicator.MagicIndicator

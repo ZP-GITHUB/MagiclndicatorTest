@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">magicindicatordemo</string>
+    <string name="app_name">智能识别</string>
     <string name="scrollable_tab">scrollable tab</string>
     <string name="fixed_tab">fixed tab</string>
     <string name="dynamic_tab">dynamic tab</string>
@@ -9,5 +9,11 @@
     <string name="custom_navigator">custom navigator</string>
     <string name="random_page">random page</string>
     <string name="tab_with_custom_layout">load custom layout</string>
+
+    <string name="content">识别内容：</string>
+    <string name="start_speak">开始识别</string>
+    <string name="to_speech">进入识别模块</string>
+    <string name="send_to_communion">发送给小菲菲吧！</string>
+    <string name="communion_tips">与小菲菲的私人聊天室</string>
 
 </resources>

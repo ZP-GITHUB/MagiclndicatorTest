@@ -9,6 +9,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+        }
     }
     buildTypes {
         release {
@@ -23,8 +26,11 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
+    implementation 'com.blankj:utilcode:1.7.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     //UI需要导的包
     implementation project(':magicindicator')
     implementation 'com.android.support:design:28.0.0'
@@ -33,4 +39,9 @@ dependencies {
     implementation files('libs/log4j-1.2.17.jar')
     implementation files('libs/aip-java-sdk-4.7.0.jar')
     implementation files('libs/fastjson-1.2.51.jar')
+
+    implementation files('libs/bdasr_V3_20190515_c9eed5d.jar')
+    implementation 'com.blankj:utilcode:1.7.1'
+
+    implementation 'com.a520wcf.yllistview:YLListView:1.0.1'
 }

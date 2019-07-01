@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_bright"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <com.zpguet.framelayout.MyFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <com.zpguet.framelayout.MyImageView
+            android:id="@+id/imageViewOrigin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:adjustViewBounds="false"
+            android:scaleType="matrix"
+            app:srcCompat="@android:color/background_light"
+            tools:layout_editor_absoluteY="32dp" />
+
+        <com.zpguet.framelayout.MyImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:adjustViewBounds="false"
+            android:scaleType="matrix"
+            app:srcCompat="@android:color/background_light"
+            tools:layout_editor_absoluteY="32dp" />
+
+        <com.zpguet.framelayout.BodyView
+            android:id="@+id/bodyview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:scaleType="matrix" />
+
+    </com.zpguet.framelayout.MyFrameLayout>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="102dp"
+        android:background="@drawable/buttom_style"
+        android:text="从相册读取" />
+
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="155dp"
+        android:layout_marginBottom="102dp"
+        android:background="@drawable/buttom_style"
+        android:text="拍照" />
+
+    <ImageView
+        android:id="@+id/binaryView"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_above="@+id/btn"
+        android:layout_alignParentStart="true"
+        app:srcCompat="?android:attr/colorBackground" />
+
+    <ImageView
+        android:id="@+id/originView"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="?android:attr/colorBackground" />
+
+    <TextView
+        android:id="@+id/tokenTextView"
+        android:layout_width="274dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="167dp" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="173dp"
+        android:layout_height="39dp"
+        android:layout_alignParentTop="true"
+        android:textColor="#FF0000"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="279dp"
+        android:layout_height="98dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="148dp"
+        android:textColor="@android:color/holo_red_dark" />
+
+</RelativeLayout>
