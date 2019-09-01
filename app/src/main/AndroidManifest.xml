@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <!-- 摄像头权限 -->
     <application
         android:allowBackup="true"
@@ -46,15 +48,15 @@
 
         <meta-data
             android:name="com.baidu.speech.APP_ID"
-            android:value="你的ID" />
+            android:value="16477134" />
         <!-- 请填写应用实际的API_KEY -->
         <meta-data
             android:name="com.baidu.speech.API_KEY"
-            android:value="你的API_KEY" />
+            android:value="CzEFwKKhIMx7uTQVxSopqnYG" />
         <!-- 请填写应用实际的SECRET_KEY -->
         <meta-data
             android:name="com.baidu.speech.SECRET_KEY"
-            android:value="你的SECRET_KEY" />
+            android:value="PgTovKSMIkib4SGW2xGzPGZy5MfpAbTI" />
 
         <activity android:name="com.zpguet.analyze.MainAnalyze">
         </activity>

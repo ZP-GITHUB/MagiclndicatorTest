@@ -1,7 +1,7 @@
 package com.zpguet.magiclndicatortest;
 
 import android.graphics.Color;
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;

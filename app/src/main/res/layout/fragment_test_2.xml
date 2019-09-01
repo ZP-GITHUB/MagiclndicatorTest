@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/communion_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zpguet.framelayout.TestFragment2">
+
+    <!--<ScrollView-->
+        <!--android:id="@+id/scrollView_oper"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="250dp"-->
+
+        <!--&gt;-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/out_communion"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="#000000"-->
+            <!--android:background="@drawable/text_style"-->
+            <!--android:textIsSelectable="true"-->
+            <!--android:textSize="16sp" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:padding="16dp"
+            android:id="@+id/out_communion"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"/>
+
+    <!--</ScrollView>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/out_communion"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/communion_tips"
+            />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        app:cardElevation="4dp"
+        android:elevation="4dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:paddingStart="16dp"
+            android:id="@+id/input_words"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:hint="input content"
+            android:textSize="20sp"
+            android:background="#00000000"
+            android:inputType="textNoSuggestions"
+            />
+
+        <Button
+            android:background="?attr/selectableItemBackground"
+
+            android:id="@+id/communion_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="发送"
+            android:layout_weight="1" />
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

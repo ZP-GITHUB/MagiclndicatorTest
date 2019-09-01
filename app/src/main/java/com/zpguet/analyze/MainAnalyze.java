@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.aip.util.Base64Util;
-import com.baidu.aip.util.Util;
 import com.zpguet.framelayout.BodyView;
 import com.zpguet.magiclndicatortest.R;
 import com.zpguet.model.BodyAttr;

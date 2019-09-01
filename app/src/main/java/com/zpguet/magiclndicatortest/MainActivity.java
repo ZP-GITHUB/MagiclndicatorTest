@@ -1,15 +1,26 @@
 package com.zpguet.magiclndicatortest;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.StrictMode;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.Utils;
+import com.zpguet.framelayout.TestFragment1;
+import com.zpguet.framelayout.TestFragment2;
+import com.zpguet.framelayout.TestFragment3;
+import com.zpguet.framelayout.TestFragment4;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -27,20 +38,37 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String[] CHANNELS = new String[]{"图像识别", "智能聊天", "语音识别"};
+    private static final String[] CHANNELS = new String[]{"图像识别", "智能聊天", "语音识别","我的语录"};
+//    private static final String[] CHANNELS = new String[]{"图像识别", "智能聊天", "语音识别"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
 //    private ExamplePagerAdapter mExamplePagerAdapter = new ExamplePagerAdapter(mDataList);
 
 
 //    private MyPagerAdapter myPagerAdapter =
-
+    private String[] permissions = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_PHONE_STATE,Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
     private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Boolean isGranted = true;
+        for (String permission: permissions
+             ) {
+            if(ContextCompat.checkSelfPermission(this,permission) != PackageManager.PERMISSION_GRANTED
+                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(permissions,100);
+                isGranted = false;
+                break;
+            }
+        }
+        if (isGranted)
+            initLayout();
+    }
 
+    private void initLayout() {
         Utils.init(this);
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads().detectDiskWrites().detectNetwork()
@@ -53,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new TestFragment1());
         list.add(new TestFragment2());
         list.add(new TestFragment3());
+        list.add(new TestFragment4());
         MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(),list);
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -60,6 +89,19 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(myPagerAdapter);
 
         initMagicIndicator3();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,"请重新打开应用进行授权",Toast.LENGTH_SHORT).show(); ;
+                finish();
+                return ;
+            }
+        }
+        initLayout();
     }
 
     private void initMagicIndicator3() {
