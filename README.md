@@ -1,5 +1,6 @@
 # **智能识别APP**
-
+本app主要调用百度智能识别系统的api，图形识别部分用了开源项目“百度人体分析Demo”（https://github.com/shanksXU/BaiduBodyAnalyzeDemo）
+（PS:这个课设给xw老师验收时的了优，给qxg老师验收时被喷了一顿，可能思考出发的方向不同，一个注重功能，一个注重完整的业务逻辑）
 **1、** **打开APP后，默认显示的是图像识别的主页面，在每个页面上方都存在着导航栏，分别为“图像识别”，“智能聊天”，“语音识别”以及“我的语录”。通过左右滑动可以滑到想到达的功能模块。**
 
 ![1](https://github.com/ZP-GITHUB/MagiclndicatorTest/raw/master/imgs/1.png)
