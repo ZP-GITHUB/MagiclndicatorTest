@@ -7,9 +7,9 @@ import android.graphics.Matrix;
 public class util {
     private static final String TAG = util.class.toString();
 
-    public static final String APP_ID = "16373933";        // APP id
-    public static final String APP_KEY = "EaETOmzhxHmW3ZzkcsNvW0Uc";       // APP key
-    public static final String SECRET_KEY = "RvAewPEpU3YO7UTe7knLqmnWWFWuPnEn";    // APP secret key
+    public static final String APP_ID = "你的APP id";        // APP id
+    public static final String APP_KEY = "你的APP key";       // APP key
+    public static final String SECRET_KEY = "你的APP secret key";    // APP secret key
 
     /*
 人像分割（返回的二值图像需要进行二次处理才可查看分割效果）
