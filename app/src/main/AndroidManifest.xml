@@ -48,15 +48,15 @@
 
         <meta-data
             android:name="com.baidu.speech.APP_ID"
-            android:value="16477134" />
+            android:value="你的APP_ID" />
         <!-- 请填写应用实际的API_KEY -->
         <meta-data
             android:name="com.baidu.speech.API_KEY"
-            android:value="CzEFwKKhIMx7uTQVxSopqnYG" />
+            android:value="你的API_KEY" />
         <!-- 请填写应用实际的SECRET_KEY -->
         <meta-data
             android:name="com.baidu.speech.SECRET_KEY"
-            android:value="PgTovKSMIkib4SGW2xGzPGZy5MfpAbTI" />
+            android:value="你的SECRET_KEY" />
 
         <activity android:name="com.zpguet.analyze.MainAnalyze">
         </activity>
