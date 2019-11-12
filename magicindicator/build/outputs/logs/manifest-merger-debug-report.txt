@@ -1,25 +1,25 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:1-58
-INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:1-58
-INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:1-58
+ADDED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:1-58
 	package
-		ADDED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:11-55
-		INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
-		INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+		ADDED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:11-55
+		INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:1-58
+		ADDED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml:1:1-58
 uses-sdk
-INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
-INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
-INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
-INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
-		ADDED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
-		INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+		ADDED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
-		ADDED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
-		INJECTED from D:\Users\ZP\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+		ADDED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from E:\Documents\AndroidStudioProjects\MagiclndicatorTest\magicindicator\src\main\AndroidManifest.xml
