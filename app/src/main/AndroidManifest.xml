@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zpguet.magiclndicatortest">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -31,7 +32,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,21 +44,21 @@
         <activity
             android:name="com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog"></activity>
+            android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".Speech_initActivity" />
         <activity android:name=".SpeechActivity" />
 
         <meta-data
             android:name="com.baidu.speech.APP_ID"
-            android:value="你的APP_ID" />
+            android:value="${BAIDU_APP_ID}" />
         <!-- 请填写应用实际的API_KEY -->
         <meta-data
             android:name="com.baidu.speech.API_KEY"
-            android:value="你的API_KEY" />
+            android:value="${BAIDU_APP_KEY}" />
         <!-- 请填写应用实际的SECRET_KEY -->
         <meta-data
             android:name="com.baidu.speech.SECRET_KEY"
-            android:value="你的SECRET_KEY" />
+            android:value="${BAIDU_SECRET_KEY}" />
 
         <activity android:name="com.zpguet.analyze.MainAnalyze">
         </activity>
