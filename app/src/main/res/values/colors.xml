@@ -5,5 +5,6 @@
     <color name="colorAccent">#ff4081</color>
     <color name="activity_bg">#dedede</color>
     <color name="primary_color">#2898EB</color>
-
+    <color name="transparent_color">#00000000</color>
+    <color name="transparent_color_lol">#1C000000</color>
 </resources>
