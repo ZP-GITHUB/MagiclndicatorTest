@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.zpguet.magiclndicatortest.MainActivity">
 
-
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:backgroundTint="?attr/colorSurface"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/choose_style"
-        android:orientation="vertical">
-
-        <net.lucode.hackware.magicindicator.MagicIndicator
-            android:id="@+id/magic_indicator3"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/common_navigator_height"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
-
-
+        android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabLayout
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorGravity="stretch"
+            app:tabIndicator="@drawable/bg_round_indicator"
+            android:layout_margin="8dp"
+            android:id="@+id/tabLayout"
+            android:paddingBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="36dp" >
+            <com.google.android.material.tabs.TabItem
+                android:text="图像识别"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.google.android.material.tabs.TabItem
+                android:text="智能聊天"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.google.android.material.tabs.TabItem
+                android:text="语音识别"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.google.android.material.tabs.TabItem
+                android:text="我的语录"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <androidx.viewpager.widget.ViewPager
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:fitsSystemWindows="true"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-</LinearLayout>
+        android:layout_height="match_parent" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
