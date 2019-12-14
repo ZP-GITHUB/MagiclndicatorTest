@@ -1,5 +1,6 @@
 package com.zpguet.util;
 
+
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -7,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class inpututils {
+public class InputUtil {
 
 //    private static String APIKEY = "e73ca560fd9f48a982ce8ef2b87b36bd";
 
@@ -25,7 +26,7 @@ public class inpututils {
             int code = connection.getResponseCode();
             if (code == 200) {
                 InputStream inputStream = connection.getInputStream();
-                String resutl = streamutils.streamToString(inputStream);
+                String resutl = StreamUtil.streamToString(inputStream);
                 JSONObject object = new JSONObject(resutl);
                 out = object.getString("content");
             }

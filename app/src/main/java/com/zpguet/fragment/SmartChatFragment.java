@@ -1,17 +1,27 @@
-package com.zpguet.framelayout;
+package com.zpguet.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,17 +33,30 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.zpguet.database.entry.WordRecordEntry;
 import com.zpguet.magiclndicatortest.ChatListAdapter;
 import com.zpguet.magiclndicatortest.R;
-import com.zpguet.util.inpututils;
+import com.zpguet.util.InputUtil;
+import com.zpguet.viewmodel.WordRecordViewModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
  */
 
-public class TestFragment2 extends Fragment {
+public class SmartChatFragment extends Fragment implements VoiceFragment.Listener {
 
     private RecyclerView out_communion;
     private EditText input_words;
@@ -44,24 +67,42 @@ public class TestFragment2 extends Fragment {
     private View view;
     private int input_switch = 0;
     private ArrayList<Pair<String,Integer>> list = new ArrayList<Pair<String,Integer>>();
+    private Executor executor = new ThreadPoolExecutor(5,10,100, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(5));
+    private VoiceFragment voiceFragment = new VoiceFragment();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_test_2, null);
-
+        view = inflater.inflate(R.layout.fragment_smart_chat, null);
+        WordRecordViewModel viewModel = new ViewModelProvider(this).get(WordRecordViewModel.class);
         out_communion = view.findViewById(R.id.out_communion);
         input_words = view.findViewById(R.id.input_words);
-        communion_layout = view.findViewById(R.id.communion_layout);
+//        communion_layout = view.findViewById(R.id.communion_layout);
 //        scrollView_oper = view.findViewById(R.id.scrollView_oper);
         communion_button = view.findViewById(R.id.communion_button);
-
-        out_communion.setAdapter(new ChatListAdapter(list));
+        ChatListAdapter chatListAdapter = new ChatListAdapter(list);
+        out_communion.setAdapter(chatListAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setStackFromEnd(true);
 
         out_communion.setLayoutManager(manager);
         out_communion.setItemAnimator(new DefaultItemAnimator());
+        chatListAdapter.setOnItemClickListener((item, v) -> {
+
+        });
+        chatListAdapter.setOnItemLongClickListener((item, v) -> {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            String dateStr = df.format(new Date());
+            WordRecordEntry itemEntry = new WordRecordEntry();
+            itemEntry.content = item.first;
+            itemEntry.contentTime = dateStr;
+            executor.execute(() -> {
+                viewModel.insertItems(itemEntry);
+                new Handler(Looper.getMainLooper()).post(() -> {
+                   Toast.makeText(getContext(),itemEntry.content + "已保存到我的语录",Toast.LENGTH_SHORT).show();
+                });
+            });
+        });
         initData();
 
         input_words.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +115,26 @@ public class TestFragment2 extends Fragment {
                 }
             }
         });
+        input_words.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() > 0) {
+                    communion_button.setEnabled(true);
+                }else {
+                    communion_button.setEnabled(false);
+                }
+            }
+        });
         communion_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -128,7 +188,7 @@ public class TestFragment2 extends Fragment {
                         public void run() {
                             // TODO Auto-generated method stub
 
-                            String result = inpututils.getString(myquestion);
+                            String result = InputUtil.getString(myquestion);
                             result.replace("{br}","\n");
                             Looper.prepare();
                             Message message=new Message();
@@ -150,13 +210,54 @@ public class TestFragment2 extends Fragment {
                 }
             }
         );
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        BottomAppBar appbar = view.findViewById(R.id.appbarChat);
+        appbar.setNavigationOnClickListener((v -> {
+            voiceFragment.show(getChildFragmentManager(),"chatFragment");
+        }));
+    }
+
+    @Override
+    public void onSayCancel(int position) {
+
+    }
+
+    @Override
+    public void onSayFinish(String content) {
+        if(content.startsWith("启动")){
+            String appName = content.substring("启动".length(),content.length()).replace("。","");
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            List<ResolveInfo> list = view.getContext().getPackageManager().queryIntentActivities(intent,0);
+            HashMap<String, android.content.pm.ApplicationInfo> map = new HashMap<String, ApplicationInfo>();
+            for (ResolveInfo info : list) {
+                ApplicationInfo applicationInfo = info.activityInfo.applicationInfo;
+                if (!map.containsKey(applicationInfo.packageName)) {
+                    map.put(applicationInfo.packageName,applicationInfo);
+                }
+            }
+            for (ApplicationInfo applicationInfo: map.values()) {
+                if (applicationInfo.loadLabel(view.getContext().getPackageManager()).toString().equals(appName)) {
+                    startActivity(view.getContext().getPackageManager().getLaunchIntentForPackage(applicationInfo.packageName));
+                    return;
+                }
+            }
+        }
+        input_words.getEditableText().clear();
+        input_words.append(content);
+        communion_button.callOnClick();
     }
 
     public void initData(){
 
 //        out_communion.append("小菲菲:哈喽，咱们来聊天吧！");
-        list.add(Pair.create("小菲菲:哈喽，咱们来聊天吧！",0));
+        list.add(Pair.create("小菲菲:哈喽，咱们来聊天吧！\ntips:长按气泡可保存至语录",0));
         out_communion.getAdapter().notifyItemInserted(list.size() - 1);
     }
 }

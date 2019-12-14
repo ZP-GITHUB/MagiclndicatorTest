@@ -1,5 +1,9 @@
 package com.zpguet.analyze;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -9,7 +13,6 @@ import com.zpguet.model.BodyKeyPoint;
 import com.zpguet.model.BodySegment;
 import com.zpguet.model.BodyTracking;
 import com.zpguet.model.Gesture;
-import com.zpguet.util.util;
 
 import org.json.JSONObject;
 
@@ -30,24 +33,35 @@ public class BodyAnalyze {
     /*
     初始化
      */
-    public void init(){
+    public void init(Context context){
         // 初始化一个client
-        client = new AipBodyAnalysisEx(util.APP_ID, util.APP_KEY, util.SECRET_KEY);
-        if (client == null){
-            Log.e(TAG, "Error:client create failed!");
-            return;
-        }
+        try {
 
-        // 设置网络连接参数
-        client.setConnectionTimeoutInMillis(2000);
-        client.setSocketTimeoutInMillis(60000);
+            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle metaData = applicationInfo.metaData;
+            String appID = metaData.getString("com.baidu.bodyAnalyze.APP_ID");
+            String appKey = metaData.getString("com.baidu.bodyAnalyze.APP_KEY");
+            String secretKey = metaData.getString("com.baidu.bodyAnalyze.SECRET_KEY");
+            Log.e("appID", metaData.toString());
+            client = new AipBodyAnalysisEx(appID, appKey, secretKey);
+            if (client == null) {
+                Log.e(TAG, "Error:client create failed!");
+                return;
+            }
 
-        // 可选：设置代理服务器地址，http和socket，或者均不设置
+            // 设置网络连接参数
+            client.setConnectionTimeoutInMillis(2000);
+            client.setSocketTimeoutInMillis(60000);
+
+            // 可选：设置代理服务器地址，http和socket，或者均不设置
 //        client.setHttpProxy("proxy_host", 0);
 //        client.setSocketProxy("proxy_host", 0);
-        // 可选：设置log4j日志输出格式，若不设置，则使用默认配置，也可以直接通过jvm启动参数设置此环境变量
+            // 可选：设置log4j日志输出格式，若不设置，则使用默认配置，也可以直接通过jvm启动参数设置此环境变量
 //        System.setProperty("aip.log4j.conf", "path/to/your/log4j.properties");
-        Log.d(TAG, "Body Analyze init success!");
+            Log.d(TAG, "Body Analyze init success!");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*

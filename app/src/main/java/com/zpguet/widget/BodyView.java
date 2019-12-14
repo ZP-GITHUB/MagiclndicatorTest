@@ -1,4 +1,4 @@
-package com.zpguet.framelayout;
+package com.zpguet.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

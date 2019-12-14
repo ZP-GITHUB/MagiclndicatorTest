@@ -15,5 +15,6 @@
     <string name="to_speech">进入识别模块</string>
     <string name="send_to_communion">发送给小菲菲吧！</string>
     <string name="communion_tips">与小菲菲的私人聊天室</string>
+    <string name="please_speak">请说话</string>
 
 </resources>

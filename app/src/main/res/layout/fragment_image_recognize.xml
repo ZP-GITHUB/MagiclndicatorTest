@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/layoutFrameCamera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewOrigin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:scaleType="matrix"
+            android:adjustViewBounds="false" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:scaleType="matrix"
+            android:adjustViewBounds="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.zpguet.widget.BodyView
+            android:id="@+id/bodyview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="matrix" />
+
+    </FrameLayout>
+
+<!--    <Button-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:id="@+id/btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="80dp"-->
+<!--        android:layout_marginBottom="102dp"-->
+<!--        android:background="@drawable/buttom_style"-->
+<!--        android:text="从相册读取" />-->
+
+
+<!--    <Button-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:id="@+id/btn1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignStart="@+id/btn"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginStart="155dp"-->
+<!--        android:layout_marginBottom="102dp"-->
+<!--        android:background="@drawable/buttom_style"-->
+<!--        android:text="拍照" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/binaryView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="230dp"-->
+<!--        android:layout_above="@+id/btn"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        app:srcCompat="?android:attr/colorBackground" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/originView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="230dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        app:srcCompat="?android:attr/colorBackground" />-->
+    <androidx.camera.view.CameraView
+        android:id="@+id/cameraView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutCameraSection"
+        android:background="#6c000000"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <com.google.android.material.tabs.TabLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorGravity="top"
+        android:layout_gravity="bottom"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:tabMode="scrollable"
+        app:tabIndicatorFullWidth="false"
+        app:tabUnboundedRipple="false"
+        app:tabTextColor="@color/color_camera_tab_text"
+        android:clipToPadding="false"
+        android:background="#00000000"
+        android:id="@+id/tabImageAnalyze"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabItem
+            android:text="手势识别"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.google.android.material.tabs.TabItem
+            android:text="人体属性"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.google.android.material.tabs.TabItem
+            android:text="人像分析"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.google.android.material.tabs.TabItem
+            android:text="人体关键点"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.google.android.material.tabs.TabItem
+            android:text="人流量分析"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.tabs.TabLayout>
+        <com.google.android.material.card.MaterialCardView
+            app:layout_constraintTop_toBottomOf="@id/tabImageAnalyze"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="66dp"
+            app:cardBackgroundColor="#ffffff"
+            android:id="@+id/captureButton"
+            android:layout_marginBottom="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp" >
+            <ImageView
+                android:id="@+id/redoImage"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_refresh_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            app:layout_constraintTop_toTopOf="@id/captureButton"
+            app:layout_constraintBottom_toBottomOf="@id/captureButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="从图库选取"
+            android:textColor="#ffffff"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:id="@+id/selectFromGallery"
+            android:layout_marginEnd="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

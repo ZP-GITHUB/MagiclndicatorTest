@@ -59,7 +59,15 @@
         <meta-data
             android:name="com.baidu.speech.SECRET_KEY"
             android:value="${BAIDU_SECRET_KEY}" />
-
+        <meta-data
+            android:name="com.baidu.bodyAnalyze.APP_ID"
+            android:value="${BAIDU_BODY_APP_ID}" />
+        <meta-data
+            android:name="com.baidu.bodyAnalyze.APP_KEY"
+            android:value="${BAIDU_BODY_APP_KEY}" />
+        <meta-data
+            android:name="com.baidu.bodyAnalyze.SECRET_KEY"
+            android:value="${BAIDU_BODY_SECRET_KEY}" />
         <activity android:name="com.zpguet.analyze.MainAnalyze">
         </activity>
     </application>
