@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.aip.util.Base64Util;
-import com.zpguet.framelayout.BodyView;
+import com.zpguet.widget.BodyView;
 import com.zpguet.magiclndicatortest.R;
 import com.zpguet.model.BodyAttr;
 import com.zpguet.model.BodyKeyPoint;
@@ -29,7 +28,7 @@ import com.zpguet.model.BodySegment;
 import com.zpguet.model.BodyTracking;
 import com.zpguet.model.Gesture;
 import com.zpguet.util.NetworkUtil;
-import com.zpguet.util.util;
+import com.zpguet.util.BitmapUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -84,7 +83,7 @@ public class MainAnalyze extends AppCompatActivity {
 
         this.initView();
         bodyAnalyze = new BodyAnalyze();
-        bodyAnalyze.init();
+//        bodyAnalyze.init();
 
         // 检查网络
         if (!NetworkUtil.isNetworkConnected(this)) {
@@ -100,9 +99,9 @@ public class MainAnalyze extends AppCompatActivity {
         }
 
         // android 7.0以上系统解决拍照的问题
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-        builder.detectFileUriExposure();
+//        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+//        StrictMode.setVmPolicy(builder.build());
+//        builder.detectFileUriExposure();
 
     }
 
@@ -242,7 +241,7 @@ public class MainAnalyze extends AppCompatActivity {
                         byte[] bytes = Base64Util.decode(base64Str);
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-                        Bitmap newbitmap = util.zoomImg(bitmap, width, height);
+                        Bitmap newbitmap = BitmapUtil.zoomImg(bitmap, width, height);
 
                         imageView.setImageBitmap(newbitmap);
 

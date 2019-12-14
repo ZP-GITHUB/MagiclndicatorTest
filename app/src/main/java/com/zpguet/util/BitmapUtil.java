@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 
-public class util {
-    private static final String TAG = util.class.toString();
+public class BitmapUtil {
+    private static final String TAG = BitmapUtil.class.toString();
 
     public static final String APP_ID = "你的APP id";        // APP id
     public static final String APP_KEY = "你的APP key";       // APP key

@@ -8,13 +8,13 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
-    <com.zpguet.framelayout.MyFrameLayout
+    <com.zpguet.widget.MyFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
-        <com.zpguet.framelayout.MyImageView
+        <com.zpguet.widget.MyImageView
             android:id="@+id/imageViewOrigin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,7 +26,7 @@
             app:srcCompat="@android:color/background_light"
             tools:layout_editor_absoluteY="32dp" />
 
-        <com.zpguet.framelayout.MyImageView
+        <com.zpguet.widget.MyImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -38,7 +38,7 @@
             app:srcCompat="@android:color/background_light"
             tools:layout_editor_absoluteY="32dp" />
 
-        <com.zpguet.framelayout.BodyView
+        <com.zpguet.widget.BodyView
             android:id="@+id/bodyview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,7 +48,7 @@
             android:layout_marginTop="0dp"
             android:scaleType="matrix" />
 
-    </com.zpguet.framelayout.MyFrameLayout>
+    </com.zpguet.widget.MyFrameLayout>
 
     <Button
         android:id="@+id/btn"

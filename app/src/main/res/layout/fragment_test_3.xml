@@ -4,31 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zpguet.framelayout.TestFragment3">
+    tools:context="com.zpguet.fragment.TestFragment3">
 
-    <ImageButton
-        android:id="@+id/go_speak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/to_speech"
-        android:textSize="12dp"
-        android:src = "@drawable/ic_slow_motion_video_black_24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<ScrollView-->
+    <!--android:id="@+id/sp_scrollView_oper"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="250dp"-->
+
+    <!--&gt;-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="16dp"
+        android:id="@+id/sp_out_communion"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"/>
+
+    <!--</ScrollView>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/go_speak"
+        android:layout_below="@+id/sp_out_communion"
+        android:orientation="horizontal"
         >
+        <TextView
+            android:id="@+id/sp_communion_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+    </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/speech_tips"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="进入识别模块"/>
+        android:layout_centerInParent="true"
+        android:text="@string/content"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/speech_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="32dp"
+        android:layout_below="@+id/speech_tips"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/speech_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speech_content"
+        android:layout_centerInParent="true"
+        android:text="@string/start_speak"
+        android:textSize="12dp"
+        android:src="@drawable/ic_mic_none_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/send_to_communion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speech_button"
+        android:layout_centerInParent="true"
+        android:text="@string/send_to_communion"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/savecontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send_to_communion"
+        android:layout_centerInParent="true"
+        android:text="保存语录"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </RelativeLayout>

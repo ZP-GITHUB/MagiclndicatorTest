@@ -18,6 +18,8 @@ import java.util.ArrayList;
  */
 public class ChatListAdapter extends RecyclerView.Adapter<ViewHolder> {
     private ArrayList<Pair<String,Integer>> list = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
     public ChatListAdapter(ArrayList<Pair<String,Integer>> list) {
         this.list = list ;
     }
@@ -42,7 +44,36 @@ public class ChatListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.content.setText(list.get(i).first);
+        Pair<String, Integer> item = list.get(i);
+        viewHolder.content.setText(item.first);
+        int width = viewHolder.content.getResources().getDisplayMetrics().widthPixels;
+        viewHolder.content.setMaxWidth(width * 5 / 8);
+        viewHolder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(item,v);
+            }
+        });
+        viewHolder.itemView.setOnLongClickListener(v -> {
+            if (onItemLongClickListener != null) {
+                onItemLongClickListener.onItemLongClick(item,v);
+                return true;
+            }else {
+                return false;
+            }
+        });
+    }
+    public void setOnItemClickListener(OnItemClickListener onClickListener) {
+        this.onItemClickListener = onClickListener;
+    }
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
+    public interface OnItemClickListener {
+        public void onItemClick(Pair<String,Integer> item, View view);
+    }
+
+    public interface OnItemLongClickListener {
+        public void onItemLongClick(Pair<String, Integer> item, View view);
     }
 }
 class ViewHolder extends  RecyclerView.ViewHolder {

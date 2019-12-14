@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:text="你好，小娜"
-    android:layout_gravity="end"
-    android:background="@drawable/text_style_white"
-    android:layout_margin="16dp"
-    android:padding="16dp"
     android:layout_height="wrap_content"
-    android:id="@id/chat_content">
+    >
+    <TextView
+        tools:text="你好，小娜"
+        android:layout_gravity="end"
+        android:background="@drawable/text_style_white"
+        android:backgroundTint="@color/color_on_surface_chat"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@id/chat_content" />
 
-</TextView>
+</FrameLayout>

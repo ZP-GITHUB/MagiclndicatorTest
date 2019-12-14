@@ -1,53 +1,103 @@
-package com.zpguet.magiclndicatortest;
+package com.zpguet.fragment;
+
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import androidx.annotation.UiThread;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.provider.MediaStore;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.aip.asrwakeup3.core.recog.MyRecognizer;
+import com.baidu.aip.asrwakeup3.core.recog.listener.ChainRecogListener;
+import com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog;
+import com.baidu.voicerecognition.android.ui.DigitalDialogInput;
+import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.Utils;
+import com.zpguet.magiclndicatortest.ChatListAdapter;
+import com.zpguet.magiclndicatortest.R;
+import com.zpguet.magiclndicatortest.Speech_initActivity;
 import com.zpguet.util.InputUtil;
 
-import java.util.ArrayList;
+import androidx.annotation.UiThread;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class Speech_initActivity extends SpeechActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * Created by janiszhang on 2016/6/10.
+ */
+
+public class TestFragment3 extends Fragment {
+    private View view;
     private TextView view_content;
 
-//    private TextView sp_out_communion;
+    //    private TextView sp_out_communion;
     private RecyclerView sp_out_communion;
     private ArrayList<Pair<String,Integer>> list = new ArrayList<Pair<String,Integer>>();
 
     private ImageButton speech_bottom;
     private Button send_to_communion;
     private Button savecontent;
-//    private ScrollView sp_scrollView_oper;
+    private MyRecognizer myRecognizer;
+    private Speech_initActivity.AsyncCallback<String> speechCallback;
+    //    private ScrollView sp_scrollView_oper;
     private String final_result;
     static int times = 1;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.speech_init);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_test_3, null);
+//
+//        go_speech = view.findViewById(R.id.go_speak);
+//
+//        go_speech.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setClass(getActivity(), Speech_initActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+        return view;
+    }
 
+    @Override
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Utils.init(view.getContext());
+
+
+        ChainRecogListener chainRecogListener = new ChainRecogListener();
+        myRecognizer = new MyRecognizer(view.getContext(), chainRecogListener);
+        BaiduASRDigitalDialog.setInput(new DigitalDialogInput(myRecognizer,
+                chainRecogListener,
+                new HashMap<String, Object>()));
         ArrayList<String> ApplyList = new ArrayList<>();
 
         String requests[] = {Manifest.permission.RECORD_AUDIO,
@@ -56,12 +106,10 @@ public class Speech_initActivity extends SpeechActivity {
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA};
-
-        //检查是否有权限
         for (String request : requests)
         {
             if (PackageManager.PERMISSION_GRANTED != ContextCompat
-                    .checkSelfPermission(this, request))
+                    .checkSelfPermission(view.getContext(), request))
             {
                 //没有就加
                 ApplyList.add(request);
@@ -73,24 +121,24 @@ public class Speech_initActivity extends SpeechActivity {
         {
             String[] toApplys = new String[ApplyList.size()];
             ApplyList.toArray(toApplys);
-            ActivityCompat.requestPermissions(this, toApplys,
-                    1000);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(toApplys,1000);
+            }
         }
+        view_content = view.findViewById(R.id.speech_content);//TextView
+        speech_bottom = view.findViewById(R.id.speech_button);//Bottom
+        savecontent = view.findViewById(R.id.savecontent);
 
-        view_content = findViewById(R.id.speech_content);//TextView
-        speech_bottom = findViewById(R.id.speech_button);//Bottom
-        savecontent = findViewById(R.id.savecontent);
-
-        sp_out_communion = findViewById(R.id.sp_out_communion);
+        sp_out_communion = view.findViewById(R.id.sp_out_communion);
 
         sp_out_communion.setAdapter(new ChatListAdapter(list));
-        LinearLayoutManager manager = new LinearLayoutManager(Speech_initActivity.this);
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
         manager.setStackFromEnd(true);
 
         sp_out_communion.setLayoutManager(manager);
         sp_out_communion.setItemAnimator(new DefaultItemAnimator());
 
-        send_to_communion = findViewById(R.id.send_to_communion);
+        send_to_communion = view.findViewById(R.id.send_to_communion);
 
 //        sp_scrollView_oper = findViewById(R.id.sp_scrollView_oper);
 
@@ -99,7 +147,7 @@ public class Speech_initActivity extends SpeechActivity {
             public void onClick(View v) {
                 //触发语音识别并显示在textView上
                 out_speech_word(
-                        new AsyncCallback<String>(){
+                        new Speech_initActivity.AsyncCallback<String>(){
                             @Override
                             public void onResult(String s)
                             {
@@ -141,33 +189,33 @@ public class Speech_initActivity extends SpeechActivity {
         });
 
         savecontent.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-               String word = view_content.getText().toString().trim();
+                String word = view_content.getText().toString().trim();
 
-               if(word == null ||  "".equals(word))
-               {
-                   Toast.makeText(Speech_initActivity.this.getApplicationContext(), "内容为空，无法保存。",
-                           Toast.LENGTH_SHORT).show();
-               }
-               else
-               {
-                   DBAdapter dbAdapter = new DBAdapter(Speech_initActivity.this);
-                   dbAdapter.open();
-                   long colunm = dbAdapter.insert(word);
-                   if (colunm == -1 ){
-                       view_content.setText("");
-                       Toast.makeText(Speech_initActivity.this.getApplicationContext(), "保存失败",
-                               Toast.LENGTH_SHORT).show();
-                   } else {
-                       view_content.setText("");
-                       Toast.makeText(Speech_initActivity.this.getApplicationContext(), "保存成功",
-                               Toast.LENGTH_SHORT).show();
-                   }
-               }
-           }
-       });
+                if(word == null ||  "".equals(word))
+                {
+                    Toast.makeText(view.getContext().getApplicationContext(), "内容为空，无法保存。",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+//                    DBAdapter dbAdapter = new DBAdapter(view.getContext());
+//                    dbAdapter.open();
+//                    long colunm = dbAdapter.insert(word);
+//                    if (colunm == -1 ){
+//                        view_content.setText("");
+//                        Toast.makeText(view.getContext().getApplicationContext(), "保存失败",
+//                                Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        view_content.setText("");
+//                        Toast.makeText(view.getContext().getApplicationContext(), "保存成功",
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+                }
+            }
+        });
 
         send_to_communion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +225,7 @@ public class Speech_initActivity extends SpeechActivity {
 
                 if(word == null ||  "".equals(word))
                 {
-                    Toast.makeText(Speech_initActivity.this.getApplicationContext(), "内容为空，无法发送。",
+                    Toast.makeText(view.getContext().getApplicationContext(), "内容为空，无法发送。",
                             Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -185,7 +233,9 @@ public class Speech_initActivity extends SpeechActivity {
                     if(times == 1)
                     {
                         list.add(Pair.create("小菲菲:哈喽，咱们来聊天吧！",0));
-                        sp_out_communion.getAdapter().notifyItemInserted(list.size() - 1);
+                        if (sp_out_communion.getAdapter() != null) {
+                            sp_out_communion.getAdapter().notifyItemInserted(list.size() - 1);
+                        }
                         times = 0;
                     }
 
@@ -194,7 +244,7 @@ public class Speech_initActivity extends SpeechActivity {
                     myquestion = word;
 
                     if (myquestion == null || "".equals(myquestion)) {
-                        Toast.makeText(Speech_initActivity.this.getApplicationContext(), "请输入聊天信息",
+                        Toast.makeText(view.getContext().getApplicationContext(), "请输入聊天信息",
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -203,10 +253,10 @@ public class Speech_initActivity extends SpeechActivity {
                         send_to_communion.setEnabled(false);
                     }
 
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if(imm.isActive()&& getCurrentFocus()!=null){
-                        if (getCurrentFocus().getWindowToken()!=null) {
-                            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if(imm.isActive()&& getActivity().getCurrentFocus()!=null){
+                        if (getActivity().getCurrentFocus().getWindowToken()!=null) {
+                            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                         }
                     }
 
@@ -257,8 +307,60 @@ public class Speech_initActivity extends SpeechActivity {
             }
         });
 
+    }
 
+    private void out_speech_word(Speech_initActivity.AsyncCallback<String> callback)
+    {
+        speechCallback = callback;
+        if (NetworkUtils.isConnected())
+        {
+            Intent intent = new Intent(getContext(), BaiduASRDigitalDialog.class);
+            startActivityForResult(intent, 100);
+        } else
+        {
+            if (speechCallback != null)
+            {
+                callback.onResult(null);
+            }
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == 100)
+        {
+            if (speechCallback != null)
+            {
+                if (resultCode == Activity.RESULT_OK)
+                {
+                    ArrayList<String> results = data.getStringArrayListExtra("results");
+                    if (results != null && results.size() > 0)
+                    {
+                        speechCallback.onResult(results.get(0));
+                    }
+                } else
+                {
+                    speechCallback.onResult("");
+                }
+                //清理引用
+                speechCallback = null;
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        BaiduASRDigitalDialog.setInput(null);
+        myRecognizer.release();
     }
 
     public interface AsyncCallback<Result>

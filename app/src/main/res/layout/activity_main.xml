@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.tabs.TabLayout
-            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorFullWidth="false"
             app:tabIndicatorGravity="stretch"
             app:tabIndicator="@drawable/bg_round_indicator"
             android:layout_margin="8dp"

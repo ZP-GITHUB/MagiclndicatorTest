@@ -1,12 +1,8 @@
 package com.zpguet.magiclndicatortest;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Build;
-import android.os.StrictMode;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -16,35 +12,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.Utils;
 import com.google.android.material.tabs.TabLayout;
-import com.zpguet.framelayout.TestFragment1;
-import com.zpguet.framelayout.TestFragment2;
-import com.zpguet.framelayout.TestFragment3;
-import com.zpguet.framelayout.TestFragment4;
+import com.zpguet.fragment.ImageRecognizeFragment;
+import com.zpguet.fragment.SmartChatFragment;
+import com.zpguet.fragment.MyWordRecord;
 import com.zpguet.util.SystemUIUtil;
 
-import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ClipPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String[] CHANNELS = new String[]{"图像识别", "智能聊天", "语音识别","我的语录"};
+    private static final String[] CHANNELS = new String[]{"图像识别", "智能聊天","我的语录"};
 //    private static final String[] CHANNELS = new String[]{"图像识别", "智能聊天", "语音识别"};
-    private List<String> mDataList = Arrays.asList(CHANNELS);
+//    private List<String> mDataList = Arrays.asList(CHANNELS);
 //    private ExamplePagerAdapter mExamplePagerAdapter = new ExamplePagerAdapter(mDataList);
 
 
@@ -79,18 +63,18 @@ public class MainActivity extends AppCompatActivity {
         TypedValue value = new TypedValue();
         getTheme().resolveAttribute(R.attr.colorSurface,value,true);
         getWindow().setStatusBarColor(value.data);
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads().detectDiskWrites().detectNetwork()
-                .penaltyLog().build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
-                .penaltyLog().penaltyDeath().build());
+//        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//                .detectDiskReads().detectDiskWrites().detectNetwork()
+//                .penaltyLog().build());
+//        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+//                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
+//                .penaltyLog().penaltyDeath().build());
 
         List<Fragment> list = new ArrayList<>();
-        list.add(new TestFragment1());
-        list.add(new TestFragment2());
-        list.add(new TestFragment3());
-        list.add(new TestFragment4());
+        list.add(new ImageRecognizeFragment());
+        list.add(new SmartChatFragment());
+//        list.add(new TestFragment3());
+        list.add(new MyWordRecord());
         MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(),list,CHANNELS);
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -100,6 +84,20 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(myPagerAdapter);
         mViewPager.setOffscreenPageLimit(list.size());
         tabLayout.setupWithViewPager(mViewPager);
+        int marginSize =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,16f,getResources().getDisplayMetrics());
+        int tabCount = tabLayout.getTabCount();
+        for (int index = 0; index < tabCount; index ++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(index);
+            if (tab != null) {
+                int viewCount = tab.view.getChildCount();
+                for (int viewIndex = 0; viewIndex < viewCount; viewIndex++) {
+                    View mView = tab.view.getChildAt(viewIndex);
+                    if (mView instanceof TextView) {
+                        mView.setPadding(marginSize + mView.getPaddingLeft(),mView.getPaddingTop(),marginSize + mView.getPaddingRight(),mView.getPaddingBottom());
+                    }
+                }
+            }
+        }
 //        initMagicIndicator3();
     }
 
